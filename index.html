@@ -2,15 +2,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Untitled Project 1 - AR Experience</title>
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      /* Ensure video fits screen */
+      video { object-fit: cover; }
+    </style>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/examples/image-tracking/assets/card-example/card.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <!-- 
+      NOTE: If you used a custom marker image, you must compile it to a .mind file.
+      1. Go to https://hiukim.github.io/mind-ar-js-doc/tools/compile
+      2. Upload 'assets/your-image.jpg'
+      3. Download the 'targets.mind' file
+      4. Place it in the 'assets' folder of this project
+    -->
+    <a-scene 
+      mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/examples/image-tracking/assets/card-example/card.mind; uiLoading: yes; uiScanning: yes; filterMinCF:0.0001; filterBeta: 0.001;" 
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false">
+      
       <a-assets>
-        <a-asset-item id="asset-2a992fff-26d8-413d-bcfc-02fb309e4e5f" src="./assets/Car.glb"></a-asset-item>
+        <a-asset-item id="asset-f842bae4-76bd-4b27-94a3-933c869ae9d0" src="./assets/Car.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -18,10 +36,11 @@
       <a-entity mindar-image-target="targetIndex: 0">
         
       <a-entity
-        gltf-model="#asset-2a992fff-26d8-413d-bcfc-02fb309e4e5f"
-        position="-0.23943124661026616 0.5109452109218271 0"
+        gltf-model="#asset-f842bae4-76bd-4b27-94a3-933c869ae9d0"
+        position="0 0 0"
         rotation="0 0 0"
-        scale="1 1 1"
+        scale="0.5 0.5 0.5"
+        
       ></a-entity>
     
       </a-entity>
