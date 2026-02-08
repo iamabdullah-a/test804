@@ -1,46 +1,54 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Untitled Project 1 - AR Experience</title>
+    <title>Untitled Project 1</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <style>
-      body { margin: 0; overflow: hidden; }
-      /* Ensure video fits screen */
-      video { object-fit: cover; }
-    </style>
+    <script src="./js/gesture-detector.js"></script>
+    <script src="./js/main.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
   </head>
   <body>
+    <div id="loader"><div class="spinner"></div><p>Loading AR Experience...</p></div>
+    <div id="scanning-overlay" class="hidden">
+      <div class="scanning-guide"><div class="scanning-text">Point camera at target</div></div>
+    </div>
+    
     <!-- 
-      NOTE: If you used a custom marker image, you must compile it to a .mind file.
-      1. Go to https://hiukim.github.io/mind-ar-js-doc/tools/compile
-      2. Upload 'assets/your-image.jpg'
-      3. Download the 'targets.mind' file
-      4. Place it in the 'assets' folder of this project
+      MindAR Settings:
+      - autoStart: false (We start manually in main.js with high-res settings)
+      - uiLoading/uiScanning: no (Custom UI)
+      - filterMinCF/filterBeta: Smoothing filters
     -->
     <a-scene 
-      mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/examples/image-tracking/assets/card-example/card.mind; uiLoading: yes; uiScanning: yes; filterMinCF:0.0001; filterBeta: 0.001;" 
+      mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: false; uiLoading: no; uiScanning: no; filterMinCF:0.0001; filterBeta: 0.001;" 
       color-space="sRGB" 
-      renderer="colorManagement: true, physicallyCorrectLights" 
+      renderer="colorManagement: true; physicallyCorrectLights: true; logarithmicDepthBuffer: true;"
       vr-mode-ui="enabled: false" 
-      device-orientation-permission-ui="enabled: false">
+      device-orientation-permission-ui="enabled: false"
+      gesture-detector>
       
-      <a-assets>
-        <a-asset-item id="asset-f842bae4-76bd-4b27-94a3-933c869ae9d0" src="./assets/Car.glb"></a-asset-item>
-      </a-assets>
+      <a-assets><a-asset-item id="asset-5b008937-02c8-4da0-8889-3d409502370b" src="./assets/Car.glb"></a-asset-item></a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      
+      <!-- Lighting -->
+      <a-entity light="type: ambient; intensity: 0.5; color: #ffffff"></a-entity>
+      <a-entity light="type: directional; intensity: 1; castShadow: true; shadowBias: -0.0001" position="1 2 1"></a-entity>
 
       <a-entity mindar-image-target="targetIndex: 0">
         
       <a-entity
-        gltf-model="#asset-f842bae4-76bd-4b27-94a3-933c869ae9d0"
+        gltf-model="#asset-5b008937-02c8-4da0-8889-3d409502370b"
         position="0 0 0"
         rotation="0 0 0"
-        scale="0.5 0.5 0.5"
+        scale="1 1 1"
         
+        gesture-handler
+        shadow="cast: true; receive: true"
       ></a-entity>
     
       </a-entity>
