@@ -16,14 +16,10 @@
         const gestureContinues = previousState && currentState && currentState.touchCount == previousState.touchCount;
         const gestureEnded = previousState && !gestureContinues;
         const gestureStarted = currentState && !gestureContinues;
-
         if (gestureEnded) { this.el.emit('gestureend'); }
         if (gestureStarted) { this.el.emit('gesturestart'); }
-
         if (gestureContinues) {
-          const eventDetail = {
-            positionChange: { x: currentState.position.x - previousState.position.x, y: currentState.position.y - previousState.position.y },
-          };
+          const eventDetail = { positionChange: { x: currentState.position.x - previousState.position.x, y: currentState.position.y - previousState.position.y } };
           if (currentState.spread) {
             eventDetail.spreadChange = currentState.spread - previousState.spread;
             this.el.emit('twofingermove', eventDetail);
@@ -48,4 +44,3 @@
         return touchState;
       }
     });
-  
